@@ -1,12 +1,377 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\publisher\\rabbitmq.rpclibrary.publisher\\publishers\\publisherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|solutionrelative:publisher\\rabbitmq.rpclibrary.publisher\\publishers\\publisherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\publisher\\rabbitmq.rpclibrary.publisher\\rabbitmq.rpclibrary.publisher.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|solutionrelative:publisher\\rabbitmq.rpclibrary.publisher\\rabbitmq.rpclibrary.publisher.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\publisher\\rabbitmq.rpclibrary.publisher\\dto\\responsemessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|solutionrelative:publisher\\rabbitmq.rpclibrary.publisher\\dto\\responsemessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\publisher\\rabbitmq.rpclibrary.publisher\\dto\\configuration\\rabbitmqpublisherconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7A84389-699E-4183-A77F-FC507ED6A1A1}|Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj|solutionrelative:publisher\\rabbitmq.rpclibrary.publisher\\dto\\configuration\\rabbitmqpublisherconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\storage\\imessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\storage\\imessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\sqlmessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\sqlmessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\inmemorymessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\inmemorymessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\filemessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\storage\\implementation\\filemessagestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\dbcontextes\\messagestoredbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\dbcontextes\\messagestoredbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\models\\messageenvelope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\models\\messageenvelope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\models\\messagestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\models\\messagestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\rabbitmq.rpclibrary.shared.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\rabbitmq.rpclibrary.shared.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\receivers\\testmessagereceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|solutionrelative:tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\receivers\\testmessagereceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\models\\testmessage2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|solutionrelative:tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\models\\testmessage2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\models\\testmessage1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|solutionrelative:tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\models\\testmessage1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{263E8D42-2D79-42C1-92F4-02AAD7061B29}|Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp.csproj|solutionrelative:tests\\completesimpleconsoleapp\\rabbitmq.rpclibrary.tests.completesimpleconsoleapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\consumer\\rabbitmq.rpclibrary.consumer\\services\\rmqtypedconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|solutionrelative:consumer\\rabbitmq.rpclibrary.consumer\\services\\rmqtypedconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\consumer\\rabbitmq.rpclibrary.consumer\\interfaces\\irabbitmqreceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|solutionrelative:consumer\\rabbitmq.rpclibrary.consumer\\interfaces\\irabbitmqreceiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\consumer\\rabbitmq.rpclibrary.consumer\\dto\\attributes\\rabbitmqreceiverattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|solutionrelative:consumer\\rabbitmq.rpclibrary.consumer\\dto\\attributes\\rabbitmqreceiverattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\consumer\\rabbitmq.rpclibrary.consumer\\dto\\configurations\\rabbitmqconsumerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{188F0B65-80C0-491A-A2CB-64CFBFFF6E51}|Consumer\\RabbitMq.RpcLibrary.Consumer\\RabbitMq.RpcLibrary.Consumer.csproj|solutionrelative:consumer\\rabbitmq.rpclibrary.consumer\\dto\\configurations\\rabbitmqconsumerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|d:\\tamrin\\public projects\\tools\\rabbitmq\\rabbitmq.rpclibrary\\shared\\rabbitmq.rpclibrary.shared\\dbcontextes\\models\\messageenvelopeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6221CF07-76B5-4021-A8C5-9627593E2260}|Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj|solutionrelative:shared\\rabbitmq.rpclibrary.shared\\dbcontextes\\models\\messageenvelopeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IMessageStore.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\IMessageStore.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\IMessageStore.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\IMessageStore.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\IMessageStore.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAQAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:15:24.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InMemoryMessageStore.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\InMemoryMessageStore.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\InMemoryMessageStore.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\InMemoryMessageStore.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\InMemoryMessageStore.cs",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAkwAIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:19:50.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SqlMessageStore.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\SqlMessageStore.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\SqlMessageStore.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\SqlMessageStore.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\SqlMessageStore.cs",
+              "ViewState": "AQIAAI4AAAAAAAAAAAAowJgAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:32:17.62Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FileMessageStore.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\FileMessageStore.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\FileMessageStore.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\FileMessageStore.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Storage\\Implementation\\FileMessageStore.cs",
+              "ViewState": "AQIAAKcAAAAAAAAAAAAwwLUAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:32:51.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RabbitMqPublisherConfiguration.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\Configuration\\RabbitMqPublisherConfiguration.cs",
+              "RelativeDocumentMoniker": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\Configuration\\RabbitMqPublisherConfiguration.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\Configuration\\RabbitMqPublisherConfiguration.cs",
+              "RelativeToolTip": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\Configuration\\RabbitMqPublisherConfiguration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:35:51.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ResponseMessage.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\ResponseMessage.cs",
+              "RelativeDocumentMoniker": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\ResponseMessage.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\ResponseMessage.cs",
+              "RelativeToolTip": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Dto\\ResponseMessage.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:38:38.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PublisherService.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Publishers\\PublisherService.cs",
+              "RelativeDocumentMoniker": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Publishers\\PublisherService.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\Publishers\\PublisherService.cs",
+              "RelativeToolTip": "Publisher\\RabbitMq.RpcLibrary.Publisher\\Publishers\\PublisherService.cs",
+              "ViewState": "AQIAAHoAAAAAAAAAAAAgwH4AAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:37:45.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RabbitMq.RpcLibrary.Publisher",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj",
+              "RelativeDocumentMoniker": "Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj",
+              "RelativeToolTip": "Publisher\\RabbitMq.RpcLibrary.Publisher\\RabbitMq.RpcLibrary.Publisher.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAmwAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-03T15:04:30.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MessageStoreDbContext.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\MessageStoreDbContext.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\MessageStoreDbContext.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\MessageStoreDbContext.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\MessageStoreDbContext.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowAUAAABTAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:31:35.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MessageEnvelope.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageEnvelope.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageEnvelope.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageEnvelope.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageEnvelope.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:13:18.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MessageStatus.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageStatus.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageStatus.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageStatus.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\Models\\MessageStatus.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:14:19.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RabbitMq.RpcLibrary.Shared",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\RabbitMq.RpcLibrary.Shared.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-03T15:06:48.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TestMessageReceiver.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Receivers\\TestMessageReceiver.cs",
+              "RelativeDocumentMoniker": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Receivers\\TestMessageReceiver.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Receivers\\TestMessageReceiver.cs",
+              "RelativeToolTip": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Receivers\\TestMessageReceiver.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:48:32.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TestMessage2.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage2.cs",
+              "RelativeDocumentMoniker": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage2.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage2.cs",
+              "RelativeToolTip": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage2.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:48:00.614Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TestMessage1.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage1.cs",
+              "RelativeDocumentMoniker": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage1.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage1.cs",
+              "RelativeToolTip": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Models\\TestMessage1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:47:30.239Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Program.cs",
+              "RelativeDocumentMoniker": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Program.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Program.cs",
+              "RelativeToolTip": "Tests\\CompleteSimpleConsoleApp\\RabbitMq.RpcLibrary.Tests.CompleteSimpleConsoleApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:47:10.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RmqTypedConsumer.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Services\\RmqTypedConsumer.cs",
+              "RelativeDocumentMoniker": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Services\\RmqTypedConsumer.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Services\\RmqTypedConsumer.cs",
+              "RelativeToolTip": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Services\\RmqTypedConsumer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:43:11.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IRabbitMqReceiver.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Interfaces\\IRabbitMqReceiver.cs",
+              "RelativeDocumentMoniker": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Interfaces\\IRabbitMqReceiver.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Interfaces\\IRabbitMqReceiver.cs",
+              "RelativeToolTip": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Interfaces\\IRabbitMqReceiver.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:42:33.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RabbitMqReceiverAttribute.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Attributes\\RabbitMqReceiverAttribute.cs",
+              "RelativeDocumentMoniker": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Attributes\\RabbitMqReceiverAttribute.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Attributes\\RabbitMqReceiverAttribute.cs",
+              "RelativeToolTip": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Attributes\\RabbitMqReceiverAttribute.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:41:51.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RabbitMqConsumerConfiguration.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Configurations\\RabbitMqConsumerConfiguration.cs",
+              "RelativeDocumentMoniker": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Configurations\\RabbitMqConsumerConfiguration.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Configurations\\RabbitMqConsumerConfiguration.cs",
+              "RelativeToolTip": "Consumer\\RabbitMq.RpcLibrary.Consumer\\Dto\\Configurations\\RabbitMqConsumerConfiguration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:40:54.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MessageEnvelopeEntity.cs",
+              "DocumentMoniker": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\Models\\MessageEnvelopeEntity.cs",
+              "RelativeDocumentMoniker": "Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\Models\\MessageEnvelopeEntity.cs",
+              "ToolTip": "D:\\TAMRIN\\Public Projects\\Tools\\RabbitMq\\RabbitMq.RpcLibrary\\Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\Models\\MessageEnvelopeEntity.cs",
+              "RelativeToolTip": "Shared\\RabbitMq.RpcLibrary.Shared\\DbContextes\\Models\\MessageEnvelopeEntity.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAA0wBAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T14:30:53.12Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
