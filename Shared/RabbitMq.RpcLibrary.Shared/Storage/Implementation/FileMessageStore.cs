@@ -1,6 +1,5 @@
 ﻿using RabbitMq.RpcLibrary.Shared.Models;
 using Newtonsoft.Json;
-using Formatting = System.Xml.Formatting;
 
 namespace RabbitMq.RpcLibrary.Shared.Storage.Implementation;
 
@@ -30,7 +29,7 @@ public class FileMessageStore : IMessageStore
 		}
 	}
 
-	public async Task UpdateStatusAsync(Guid id, MessageStatus status, CancellationToken ct = default)
+	public async Task UpdateStatusAsync(Guid id, string status, CancellationToken ct = default)
 	{
 		await _semaphore.WaitAsync(ct);
 		try
@@ -48,7 +47,7 @@ public class FileMessageStore : IMessageStore
 		}
 	}
 
-	public async Task UpdateStatusAsync(Guid id, MessageStatus status, string? errorMessage, CancellationToken ct = default)
+	public async Task UpdateStatusAsync(Guid id, string status, string? errorMessage, CancellationToken ct = default)
 	{
 		await _semaphore.WaitAsync(ct);
 		try
@@ -67,40 +66,23 @@ public class FileMessageStore : IMessageStore
 		}
 	}
 
-	public async Task UpdateResponseAsync(Guid id, string responsePayload, CancellationToken ct = default)
-	{
-		await _semaphore.WaitAsync(ct);
-		try
-		{
-			var messages = await LoadAllMessages();
-			if (messages.TryGetValue(id, out var message))
-			{
-				message.ResponsePayload = responsePayload;
-				await SaveAllMessages(messages);
-			}
-		}
-		finally
-		{
-			_semaphore.Release();
-		}
-	}
 
 	public async Task<MessageEnvelope?> GetAsync(Guid id, CancellationToken ct = default)
 	{
 		var messages = await LoadAllMessages();
-		return messages.TryGetValue(id, out var message) ? message : null;
+		return messages.GetValueOrDefault(id);
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetPendingAsync(CancellationToken ct = default)
 	{
 		var messages = await LoadAllMessages();
-		return messages.Values.Where(m => m.Status == MessageStatus.ResponsePending);
+		return messages.Values.Where(m => m.Status == MessageStatus.ResponsePending.ToString());
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetFailedAsync(CancellationToken ct = default)
 	{
 		var messages = await LoadAllMessages();
-		return messages.Values.Where(m => m.Status == MessageStatus.Failed);
+		return messages.Values.Where(m => m.Status == MessageStatus.Failed.ToString());
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetRetryableAsync(CancellationToken ct = default)
@@ -108,7 +90,7 @@ public class FileMessageStore : IMessageStore
 		var messages = await LoadAllMessages();
 		var cutoff = DateTime.UtcNow.AddMinutes(-5);
 		return messages.Values.Where(m =>
-			(m.Status == MessageStatus.Failed || m.Status == MessageStatus.TryingToPublish) &&
+			(m.Status == MessageStatus.Failed.ToString() || m.Status == MessageStatus.TryingToPublish.ToString()) &&
 			m.RetryCount < 3 &&
 			(m.LastRetryAt == null || m.LastRetryAt < cutoff));
 	}
@@ -140,7 +122,7 @@ public class FileMessageStore : IMessageStore
 			var messages = await LoadAllMessages();
 			var cutoff = DateTime.UtcNow.Subtract(maxAge);
 			var toRemove = messages.Values.Where(m => m.CreatedAt < cutoff &&
-				(m.Status == MessageStatus.Completed || m.Status == MessageStatus.Failed || m.Status == MessageStatus.TimedOut)).ToList();
+				(m.Status == MessageStatus.Completed.ToString() || m.Status == MessageStatus.Failed.ToString() || m.Status == MessageStatus.TimedOut.ToString())).ToList();
 			foreach (var msg in toRemove)
 				messages.Remove(msg.Id);
 			await SaveAllMessages(messages);
@@ -151,18 +133,27 @@ public class FileMessageStore : IMessageStore
 		}
 	}
 
-	public async Task<Dictionary<MessageStatus, int>> GetMessageCountsByStatusAsync(CancellationToken ct = default)
+	async Task<Dictionary<string, int>> IMessageStore.GetMessageCountsByStatusAsync(CancellationToken ct)
 	{
 		var messages = await LoadAllMessages();
 		var counts = messages.Values.GroupBy(m => m.Status).ToDictionary(g => g.Key, g => g.Count());
 		return counts;
 	}
 
+	
+
 	public async Task<IEnumerable<MessageEnvelope>> GetOldPendingMessagesAsync(TimeSpan maxAge, CancellationToken ct = default)
 	{
 		var messages = await LoadAllMessages();
 		var cutoff = DateTime.UtcNow.Subtract(maxAge);
-		return messages.Values.Where(m => m.Status == MessageStatus.ResponsePending && m.CreatedAt < cutoff);
+		return messages.Values.Where(m => m.Status == MessageStatus.ResponsePending.ToString() && m.CreatedAt < cutoff);
+	}
+
+	public async Task<IEnumerable<MessageEnvelope>> LoadPendingMessagesAsync(CancellationToken ct = default)
+	{
+		var messages = await LoadAllMessages();
+		
+		return messages.Values.Where(m => m.Status == MessageStatus.ResponsePending.ToString());
 	}
 
 	private async Task<Dictionary<Guid, MessageEnvelope>> LoadAllMessages()

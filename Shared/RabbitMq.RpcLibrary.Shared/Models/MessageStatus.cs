@@ -1,5 +1,4 @@
 ﻿namespace RabbitMq.RpcLibrary.Shared.Models;
-
 public enum MessageStatus
 {
 	TryingToPublish,
@@ -8,6 +7,6 @@ public enum MessageStatus
 	Failed,
 	Completed,
 	Retrying,
-	Received, // When consumer receives the message
-	TimedOut // For old pending messages
+	Received,
+	TimedOut
 }

@@ -1,157 +1,134 @@
-﻿using RabbitMq.RpcLibrary.Shared.DbContext;
+﻿using Microsoft.EntityFrameworkCore;
 using RabbitMq.RpcLibrary.Shared.DbContextes;
-using RabbitMq.RpcLibrary.Shared.DbContextes.Models;
 using RabbitMq.RpcLibrary.Shared.Models;
 
 namespace RabbitMq.RpcLibrary.Shared.Storage.Implementation;
 
-public class SqlMessageStore : IMessageStore, IDisposable
+public class SqlMessageStore : IMessageStore
 {
-	private readonly MessageStoreDbContext _context;
-	private bool _disposed = false;
+	private readonly DbContextOptions<MessageDbContext> _options;
 
-	public SqlMessageStore(MessageStoreDbContext context)
+	public SqlMessageStore(string connectionString)
 	{
-		_context = context;
+		_options = new DbContextOptionsBuilder<MessageDbContext>()
+			.UseSqlServer(connectionString)
+			.Options;
+
+		using var context = new MessageDbContext(_options);
+		context.Database.EnsureCreated();
 	}
 
 	public async Task SaveAsync(MessageEnvelope message, CancellationToken ct = default)
 	{
-		var entity = ToEntity(message);
-		await _context.MessageEnvelopes.AddAsync(entity, ct);
-		await _context.SaveChangesAsync(ct);
+		using var context = new MessageDbContext(_options);
+		context.Messages.Add(message);
+		await context.SaveChangesAsync(ct);
 	}
 
-	public async Task UpdateStatusAsync(Guid id, MessageStatus status, CancellationToken ct = default)
+	public async Task UpdateStatusAsync(Guid id, string status, CancellationToken ct = default)
 	{
-		await _context.MessageEnvelopes
-			.Where(m => m.Id == id)
-			.ExecuteUpdateAsync(setters => setters.SetProperty(m => m.Status, status), ct);
+		using var context = new MessageDbContext(_options);
+		var message = await context.Messages.FindAsync(new object[] { id }, ct);
+		if (message != null)
+		{
+			message.Status = status;
+			await context.SaveChangesAsync(ct);
+		}
 	}
 
-	public async Task UpdateStatusAsync(Guid id, MessageStatus status, string? errorMessage, CancellationToken ct = default)
+	public async Task UpdateStatusAsync(Guid id, string status, string? errorMessage, CancellationToken ct = default)
 	{
-		await _context.MessageEnvelopes
-			.Where(m => m.Id == id)
-			.ExecuteUpdateAsync(setters => setters
-				.SetProperty(m => m.Status, status)
-				.SetProperty(m => m.ErrorMessage, errorMessage), ct);
-	}
-
-	public async Task UpdateResponseAsync(Guid id, string responsePayload, CancellationToken ct = default)
-	{
-		await _context.MessageEnvelopes
-			.Where(m => m.Id == id)
-			.ExecuteUpdateAsync(setters => setters.SetProperty(m => m.ResponsePayload, responsePayload), ct);
+		using var context = new MessageDbContext(_options);
+		var message = await context.Messages.FindAsync(new object[] { id }, ct);
+		if (message != null)
+		{
+			message.Status = status;
+			message.ErrorMessage = errorMessage;
+			await context.SaveChangesAsync(ct);
+		}
 	}
 
 	public async Task<MessageEnvelope?> GetAsync(Guid id, CancellationToken ct = default)
 	{
-		var entity = await _context.MessageEnvelopes.FirstOrDefaultAsync(m => m.Id == id, ct);
-		return entity != null ? ToModel(entity) : null;
+		using var context = new MessageDbContext(_options);
+		return await context.Messages.FindAsync(new object[] { id }, ct);
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetPendingAsync(CancellationToken ct = default)
 	{
-		var entities = await _context.MessageEnvelopes.Where(m => m.Status == MessageStatus.ResponsePending).ToListAsync(ct);
-		return entities.Select(ToModel);
+		using var context = new MessageDbContext(_options);
+		return await context.Messages
+			.Where(m => m.Status == "ResponsePending")
+			.ToListAsync(ct);
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetFailedAsync(CancellationToken ct = default)
 	{
-		var entities = await _context.MessageEnvelopes.Where(m => m.Status == MessageStatus.Failed).ToListAsync(ct);
-		return entities.Select(ToModel);
+		using var context = new MessageDbContext(_options);
+		return await context.Messages
+			.Where(m => m.Status == "Failed")
+			.ToListAsync(ct);
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetRetryableAsync(CancellationToken ct = default)
 	{
 		var cutoff = DateTime.UtcNow.AddMinutes(-5);
-		var entities = await _context.MessageEnvelopes
-			.Where(m => (m.Status == MessageStatus.Failed || m.Status == MessageStatus.TryingToPublish) &&
+		using var context = new MessageDbContext(_options);
+		return await context.Messages
+			.Where(m => (m.Status == "Failed" || m.Status == "TryingToPublish") &&
 						m.RetryCount < 3 &&
 						(m.LastRetryAt == null || m.LastRetryAt < cutoff))
 			.ToListAsync(ct);
-		return entities.Select(ToModel);
 	}
 
 	public async Task IncrementRetryCountAsync(Guid id, CancellationToken ct = default)
 	{
-		var now = DateTime.UtcNow;
-		await _context.MessageEnvelopes
-			.Where(m => m.Id == id)
-			.ExecuteUpdateAsync(setters => setters
-				.SetProperty(m => m.RetryCount, m => m.RetryCount + 1)
-				.SetProperty(m => m.LastRetryAt, now), ct);
+		using var context = new MessageDbContext(_options);
+		var message = await context.Messages.FindAsync(new object[] { id }, ct);
+		if (message != null)
+		{
+			message.RetryCount++;
+			message.LastRetryAt = DateTime.UtcNow;
+			await context.SaveChangesAsync(ct);
+		}
 	}
 
 	public async Task CleanupOldMessagesAsync(TimeSpan maxAge, CancellationToken ct = default)
 	{
 		var cutoff = DateTime.UtcNow.Subtract(maxAge);
-		await _context.MessageEnvelopes
+		using var context = new MessageDbContext(_options);
+		var messages = await context.Messages
 			.Where(m => m.CreatedAt < cutoff &&
-						(m.Status == MessageStatus.Completed || m.Status == MessageStatus.Failed || m.Status == MessageStatus.TimedOut))
-			.ExecuteDeleteAsync(ct);
+						(m.Status == "Completed" || m.Status == "Failed" || m.Status == "TimedOut"))
+			.ToListAsync(ct);
+		context.Messages.RemoveRange(messages);
+		await context.SaveChangesAsync(ct);
 	}
 
-	public async Task<Dictionary<MessageStatus, int>> GetMessageCountsByStatusAsync(CancellationToken ct = default)
+	public async Task<Dictionary<string, int>> GetMessageCountsByStatusAsync(CancellationToken ct = default)
 	{
-		return await _context.MessageEnvelopes
+		using var context = new MessageDbContext(_options);
+		var counts = await context.Messages
 			.GroupBy(m => m.Status)
 			.Select(g => new { Status = g.Key, Count = g.Count() })
-			.ToDictionaryAsync(x => x.Status, x => x.Count, ct);
+			.ToDictionaryAsync(k => k.Status, v => v.Count, ct);
+		return counts;
 	}
 
 	public async Task<IEnumerable<MessageEnvelope>> GetOldPendingMessagesAsync(TimeSpan maxAge, CancellationToken ct = default)
 	{
 		var cutoff = DateTime.UtcNow.Subtract(maxAge);
-		var entities = await _context.MessageEnvelopes
-			.Where(m => m.Status == MessageStatus.ResponsePending && m.CreatedAt < cutoff)
+		using var context = new MessageDbContext(_options);
+		return await context.Messages
+			.Where(m => m.Status == "ResponsePending" && m.CreatedAt < cutoff)
 			.ToListAsync(ct);
-		return entities.Select(ToModel);
 	}
 
-	private static MessageEnvelopeEntity ToEntity(MessageEnvelope model)
+	public async Task<IEnumerable<MessageEnvelope>> LoadPendingMessagesAsync(CancellationToken ct = default)
 	{
-		return new MessageEnvelopeEntity
-		{
-			Id = model.Id,
-			Type = model.Type,
-			CorrelationId = model.CorrelationId,
-			ReplyQueue = model.ReplyQueue,
-			Payload = model.Payload,
-			CreatedAt = model.CreatedAt,
-			Status = model.Status,
-			RetryCount = model.RetryCount,
-			LastRetryAt = model.LastRetryAt,
-			ErrorMessage = model.ErrorMessage,
-			ResponsePayload = model.ResponsePayload
-		};
-	}
-
-	private static MessageEnvelope ToModel(MessageEnvelopeEntity entity)
-	{
-		return new MessageEnvelope
-		{
-			Id = entity.Id,
-			Type = entity.Type,
-			CorrelationId = entity.CorrelationId,
-			ReplyQueue = entity.ReplyQueue,
-			Payload = entity.Payload,
-			CreatedAt = entity.CreatedAt,
-			Status = entity.Status,
-			RetryCount = entity.RetryCount,
-			LastRetryAt = entity.LastRetryAt,
-			ErrorMessage = entity.ErrorMessage,
-			ResponsePayload = entity.ResponsePayload
-		};
-	}
-
-	public void Dispose()
-	{
-		if (!_disposed)
-		{
-			_context?.Dispose();
-			_disposed = true;
-		}
+		using var context = new MessageDbContext(_options);
+		return await context.Messages
+			.Where(m => m.Status != "Completed" && m.Status != "TimedOut")
+			.ToListAsync(ct);
 	}
 }

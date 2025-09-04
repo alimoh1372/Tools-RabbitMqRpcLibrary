@@ -8,6 +8,7 @@ using RabbitMQ.Client.Events;
 using RabbitMq.RpcLibrary.Publisher.Dto;
 using RabbitMq.RpcLibrary.Shared.Models;
 using RabbitMq.RpcLibrary.Shared.Storage;
+using Microsoft.Extensions.Logging;
 
 namespace RabbitMq.RpcLibrary.Publisher.Publishers;
 
@@ -15,27 +16,33 @@ public class PublisherService : IDisposable
 {
 	private readonly RabbitMqPublisherConfiguration _config;
 	private readonly IMessageStore _store;
+	private readonly ILogger<PublisherService> _logger;
 	private IConnection? _connection;
 	private IChannel? _channel;
-	private IChannel? _replyChannel; // Separate channel for reply consumer
+	private IChannel? _replyChannel;
 	private List<AmqpTcpEndpoint>? _endpoints;
 	private ConnectionFactory? _factory;
 	private readonly System.Timers.Timer _retryTimer;
-	private readonly System.Timers.Timer _timeoutTimer; // Timer for checking timeouts
-	private readonly ConcurrentDictionary<ulong, Guid> _pendingConfirms = new(); // For publisher confirms
+	private readonly System.Timers.Timer _timeoutTimer;
+	private readonly ConcurrentDictionary<ulong, Guid> _pendingConfirms = new();
 	private bool _disposed = false;
 
-	public PublisherService(RabbitMqPublisherConfiguration config, IMessageStore store)
+	public event Action<int>? OnPublished;
+
+	public PublisherService(RabbitMqPublisherConfiguration config, IMessageStore store, ILogger<PublisherService> logger)
 	{
 		_config = config;
 		_store = store;
+		_logger = logger;
 		_retryTimer = new System.Timers.Timer(TimeSpan.FromMinutes(2).TotalMilliseconds);
 		_retryTimer.Elapsed += OnRetryTimerElapsed;
 		_retryTimer.AutoReset = true;
 
-		_timeoutTimer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds); // Check every 1 min
+		_timeoutTimer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
 		_timeoutTimer.Elapsed += OnTimeoutTimerElapsed;
 		_timeoutTimer.AutoReset = true;
+
+		OnPublished += count => _logger.LogInformation($"Published {count} messages.");
 	}
 
 	public async Task<(bool isSuccess, string errorMessage)> Initialize(CancellationToken ct = default)
@@ -43,7 +50,8 @@ public class PublisherService : IDisposable
 		try
 		{
 			_endpoints = _config.RabbitMqConnections
-				.Select(x => {
+				.Select(x =>
+				{
 					var parts = x.Split(":");
 					return new AmqpTcpEndpoint(parts[0], int.Parse(parts[1]));
 				}).ToList();
@@ -56,32 +64,24 @@ public class PublisherService : IDisposable
 			};
 
 			_connection = await _factory.CreateConnectionAsync(_endpoints, ct);
+			_channel = await _connection.CreateChannelAsync(new CreateChannelOptions(publisherConfirms: true), ct);
 
-			_channel = await _connection.CreateChannelAsync(
-				new CreateChannelOptions(
-					publisherConfirmationsEnabled: true,
-					publisherConfirmationTrackingEnabled: true
-					),
-				ct); // Explicit confirms
+			_channel.BasicAcksAsync += OnConfirmReceivedAsync;
+			_channel.BasicNacksAsync += OnFailedReceivedAsync;
 
-			_channel.BasicAcksAsync += async (sender, eventArgs) =>
-			{
-				await OnConfirmReceived(sender, eventArgs);
-			};
+			await _channel.QueueDeclareAsync(_config.PublishQueueName, true, false, false, null, ct);
 
-			await _channel.BasicAckAsync+= async (OnConfirmReceived, ct); // Handle confirms
-
-			await _channel.QueueDeclareAsync(_config.QueueName, true, false, false, null, ct);
-
-			// Declare reply queue (persistent for reliability)
 			_replyChannel = await _connection.CreateChannelAsync(ct);
+			await _replyChannel.QueueDeclareAsync(_config.ReplyQueueName, true, false, false, null, ct);
 
-			await _replyChannel.QueueDeclareAsync("response-queue", true, false, false, null, ct); // Assuming fixed reply queue
-
-			// Setup consumer for reply queue
 			var replyConsumer = new AsyncEventingBasicConsumer(_replyChannel);
-			replyConsumer.ReceivedAsync += OnReplyReceived;
-			await _replyChannel.BasicConsumeAsync("response-queue", false, replyConsumer, ct);
+			replyConsumer.ReceivedAsync += OnReplyReceivedAsync;
+			await _replyChannel.BasicConsumeAsync(_config.ReplyQueueName, false, replyConsumer, ct);
+
+			// Load pending messages
+			var pendingMessages = await _store.LoadPendingMessagesAsync(ct);
+			foreach (var msg in pendingMessages)
+				await _store.SaveAsync(msg, ct); // Ensure in-memory for retries
 
 			_retryTimer.Start();
 			_timeoutTimer.Start();
@@ -90,7 +90,8 @@ public class PublisherService : IDisposable
 		}
 		catch (Exception ex)
 		{
-			return (false, $"Publisher init failed: {ex.Message}");
+			_logger.LogError(ex, "Publisher init failed");
+			return (false, ex.Message);
 		}
 	}
 
@@ -98,12 +99,15 @@ public class PublisherService : IDisposable
 	{
 		try
 		{
+			envelope.CorrelationId = envelope.Id.ToString();
+			envelope.ReplyQueue = _config.ReplyQueueName;
 			await _store.SaveAsync(envelope, ct);
 			await InternalPublishAsync(envelope, ct);
 		}
 		catch (Exception ex)
 		{
-			await _store.UpdateStatusAsync(envelope.Id, MessageStatus.Failed, ex.Message, ct);
+			_logger.LogError(ex, "Publish failed");
+			await _store.UpdateStatusAsync(envelope.Id, "Failed", ex.Message, ct);
 			throw;
 		}
 	}
@@ -121,36 +125,64 @@ public class PublisherService : IDisposable
 			}
 		};
 
-		await _store.UpdateStatusAsync(envelope.Id, MessageStatus.Publishing, ct);
+		await _store.UpdateStatusAsync(envelope.Id, "Publishing", ct);
 
-		var sequenceNumber = await _channel!.NextPublishSeqNoAsync(ct); // Get sequence for confirm
-		_pendingConfirms[sequenceNumber] = envelope.Id; // Track pending
+		var sequenceNumber = _channel!.NextPublishSeqNo;
+		_pendingConfirms[sequenceNumber] = envelope.Id;
 
-		await _channel.BasicPublishAsync("", _config.QueueName, envelope.Payload, props, true, ct);
-
-		// No immediate status change; wait for confirm in OnConfirmReceived
+		await _channel.BasicPublishAsync("", _config.PublishQueueName, envelope.Payload, props, true, ct);
 	}
 
-	private async Task OnConfirmReceived(object sender,BasicAckEventArgs eventArgs)
+	private async Task OnConfirmReceivedAsync(object? sender, BasicAckEventArgs eventArgs)
 	{
-		
-		if (_pendingConfirms.TryRemove(eventArgs.DeliveryTag, out var messageId))
+		if (eventArgs.Multiple)
 		{
-				await _store.UpdateStatusAsync(messageId, MessageStatus.ResponsePending);
-		//}
-		//	else
-		//	{
-		//		_store.UpdateStatusAsync(messageId, MessageStatus.Failed, "Publish confirm nack");
-		//	}
+			var confirmed = _pendingConfirms.Where(p => p.Key <= eventArgs.DeliveryTag);
+			foreach (var (seq, id) in confirmed.ToList())
+			{
+				if (_pendingConfirms.TryRemove(seq, out _))
+				{
+					await _store.UpdateStatusAsync(id, "ResponsePending");
+				}
+			}
+		}
+		else
+		{
+			if (_pendingConfirms.TryRemove(eventArgs.DeliveryTag, out var id))
+			{
+				await _store.UpdateStatusAsync(id, "ResponsePending");
+			}
 		}
 	}
 
-	private async Task OnReplyReceived(object? sender, BasicDeliverEventArgs ea)
+	private async Task OnFailedReceivedAsync(object? sender, BasicNackEventArgs eventArgs)
+	{
+		if (eventArgs.Multiple)
+		{
+			var failed = _pendingConfirms.Where(p => p.Key <= eventArgs.DeliveryTag);
+			foreach (var (seq, id) in failed.ToList())
+			{
+				if (_pendingConfirms.TryRemove(seq, out _))
+				{
+					await _store.UpdateStatusAsync(id, "Failed", "Publish nack");
+				}
+			}
+		}
+		else
+		{
+			if (_pendingConfirms.TryRemove(eventArgs.DeliveryTag, out var id))
+			{
+				await _store.UpdateStatusAsync(id, "Failed", "Publish nack");
+			}
+		}
+	}
+
+	private async Task OnReplyReceivedAsync(object? sender, BasicDeliverEventArgs ea)
 	{
 		try
 		{
 			var correlationId = ea.BasicProperties.CorrelationId;
-			var message = await _store.GetAsync(Guid.Parse(correlationId)); // Assuming CorrelationId = Id.ToString()
+			var message = await _store.GetAsync(Guid.Parse(correlationId));
 			if (message == null)
 			{
 				await _replyChannel!.BasicNackAsync(ea.DeliveryTag, false, false);
@@ -158,28 +190,16 @@ public class PublisherService : IDisposable
 			}
 
 			var responseJson = Encoding.UTF8.GetString(ea.Body.ToArray());
-			var response = JsonConvert.DeserializeObject<ResponseMessage>(responseJson);
+			var response = JsonConvert.DeserializeObject<MessageEnvelope>(responseJson);
 
-			if (response.Status == "Received")
-			{
-				await _store.UpdateStatusAsync(message.Id, MessageStatus.Received);
-			}
-			else if (response.Status == "Success")
-			{
-				await _store.UpdateStatusAsync(message.Id, MessageStatus.Completed);
-				await _store.UpdateResponseAsync(message.Id, response.Payload ?? "");
-			}
-			else if (response.Status == "Failure")
-			{
-				await _store.UpdateStatusAsync(message.Id, MessageStatus.Failed, response.ErrorMessage);
-			}
+			await _store.UpdateStatusAsync(message.Id, response.Status, response.ErrorMessage);
 
 			await _replyChannel.BasicAckAsync(ea.DeliveryTag, false);
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error processing reply: {ex.Message}");
-			await _replyChannel!.BasicNackAsync(ea.DeliveryTag, false, true); // Requeue
+			_logger.LogError(ex, "Reply processing failed");
+			await _replyChannel!.BasicNackAsync(ea.DeliveryTag, false, true);
 		}
 	}
 
@@ -187,31 +207,35 @@ public class PublisherService : IDisposable
 	{
 		try
 		{
-			var retryableMessages = await _store.GetRetryableAsync();
-			foreach (var message in retryableMessages)
+			var retryable = await _store.GetRetryableAsync();
+			int count = 0;
+			foreach (var msg in retryable)
 			{
 				try
 				{
-					await _store.IncrementRetryCountAsync(message.Id);
-					await _store.UpdateStatusAsync(message.Id, MessageStatus.Retrying);
-					await InternalPublishAsync(message);
+					await _store.IncrementRetryCountAsync(msg.Id);
+					await _store.UpdateStatusAsync(msg.Id, "Retrying");
+					await InternalPublishAsync(msg);
+					count++;
 				}
 				catch (Exception ex)
 				{
-					if (message.RetryCount >= 3)
+					_logger.LogError(ex, "Retry failed for {MessageId}", msg.Id);
+					if (msg.RetryCount >= _config.MaxRetryCount)
 					{
-						await _store.UpdateStatusAsync(message.Id, MessageStatus.Failed, $"Max retries exceeded: {ex.Message}");
+						await _store.UpdateStatusAsync(msg.Id, "Failed", $"Max retries exceeded: {ex.Message}");
 					}
 					else
 					{
-						await _store.UpdateStatusAsync(message.Id, MessageStatus.TryingToPublish, ex.Message);
+						await _store.UpdateStatusAsync(msg.Id, "TryingToPublish", ex.Message);
 					}
 				}
 			}
+			OnPublished?.Invoke(count);
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Retry timer error: {ex.Message}");
+			_logger.LogError(ex, "Retry timer failed");
 		}
 	}
 
@@ -220,30 +244,28 @@ public class PublisherService : IDisposable
 		try
 		{
 			var oldPending = await _store.GetOldPendingMessagesAsync(_config.TimeoutDuration);
-			foreach (var message in oldPending)
+			foreach (var msg in oldPending)
 			{
-				await _store.UpdateStatusAsync(message.Id, MessageStatus.TimedOut, "Response timeout");
-				Console.WriteLine($"Warning: Message {message.Id} timed out. Notify user.");
+				await _store.UpdateStatusAsync(msg.Id, "TimedOut", "Timeout");
+				_logger.LogWarning("Message {MessageId} timed out", msg.Id);
 			}
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Timeout timer error: {ex.Message}");
+			_logger.LogError(ex, "Timeout timer failed");
 		}
 	}
 
 	public void Dispose()
 	{
-		if (!_disposed)
-		{
-			_retryTimer?.Stop();
-			_retryTimer?.Dispose();
-			_timeoutTimer?.Stop();
-			_timeoutTimer?.Dispose();
-			_channel?.Dispose();
-			_replyChannel?.Dispose();
-			_connection?.Dispose();
-			_disposed = true;
-		}
+		if (_disposed) return;
+		_retryTimer.Stop();
+		_retryTimer.Dispose();
+		_timeoutTimer.Stop();
+		_timeoutTimer.Dispose();
+		_channel?.Dispose();
+		_replyChannel?.Dispose();
+		_connection?.Dispose();
+		_disposed = true;
 	}
 }

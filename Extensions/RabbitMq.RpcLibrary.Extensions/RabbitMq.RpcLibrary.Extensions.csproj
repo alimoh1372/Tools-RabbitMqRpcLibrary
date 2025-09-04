@@ -6,10 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\Configurations\" />
-    <Folder Include="Dto\Attributes\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>
